@@ -9,27 +9,29 @@ import {
   Pressable,
 } from "react-native";
 import products from "../data/products";
+import { useSelector } from 'react-redux';
 
 export default function ProductDetailScreen() {
-  const product = products[0];
+  const product = useSelector(state => state.products.selectedProduct)
   const { width } = useWindowDimensions();
 
-  const addToCart = () =>{
-    console.warn("deu certo")
-  }
+  const addToCart = () => {
+    console.warn("deu certo", product.images);
+  };
   return (
     <View>
-      <FlatList
-        data={product.images}
-        renderItem={({ item }) => (
-          <Image source={{ url: item }} style={{ width, aspectRatio: 1 }} />
-        )}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-      />
       <ScrollView>
-        <View style={{ padding: 20 }}>
+        <FlatList
+          data={product.images}
+          renderItem={({ item }) => (
+            <Image source={{ url: item }} style={{ width, aspectRatio: 1 }} />
+          )}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+        />
+
+        <View style={{ padding: 20, marginBottom: 100 }}>
           <Text style={styles.title}>{product.name}</Text>
           <Text style={styles.price}>${product.price}</Text>
           <Text style={styles.description}>{product.description}</Text>
@@ -52,10 +54,11 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: "500",
     fontSize: 20,
-    marginVertical: 10
+    marginVertical: 10,
   },
   description: {
-    lineHeight: 25,
+    marginVertical: 10,
+    lineHeight: 30,
     fontSize: 18,
     fontWeight: "300",
   },
@@ -68,11 +71,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     borderRadius: 100,
-    alignItems: "center"
+    alignItems: "center",
   },
-  buttonTxt : {
-    color: "white", 
-    fontWeight: '500',
-    fontSize:16,
-  }
+  buttonTxt: {
+    color: "white",
+    fontWeight: "500",
+    fontSize: 16,
+  },
 });

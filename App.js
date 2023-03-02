@@ -1,17 +1,15 @@
 import { StyleSheet, View } from "react-native";
-import products from "./src/data/products";
-import ProductsScreen from "./src/screens/ProductsScreen";
-import ProductDetailScreen from './src/screens/ProductDetailScreen';
-import ShoppingCart from "./src/screens/ShoppingCart";
+import Navigation from "./src/navigation";
+import { Provider } from "react-redux";
+import { store } from "./src/store";
 
-console.log("prods", products);
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <ProductsScreen /> */}
-      {/* <ProductDetailScreen /> */}
-      <ShoppingCart />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <Navigation />
+      </View>
+    </Provider>
   );
 }
 
